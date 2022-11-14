@@ -1,7 +1,7 @@
 import requests
 
-from lib.base_case import BaseCase
-from lib.assertions import Assertions
+from utils.base_case import BaseCase
+from utils.assertions import Assertions
 from const import urls
 
 

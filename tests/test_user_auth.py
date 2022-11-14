@@ -1,9 +1,9 @@
 import pytest
 
-from lib.assertions import Assertions
-from lib.base_case import BaseCase
+from utils.assertions import Assertions
+from utils.base_case import BaseCase
 from const import urls
-from lib.my_requests import MyRequests
+from utils.my_requests import MyRequests
 
 
 class TestUserAuth(BaseCase):
