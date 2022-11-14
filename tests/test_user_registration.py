@@ -1,15 +1,17 @@
-import requests
 from http import HTTPStatus
 
-from utils.base_case import BaseCase
-from utils.assertions import Assertions
+import requests
+
 from const import urls
+from utils.assertions import Assertions
+from utils.base_case import BaseCase
+from utils.my_requests import MyRequests
 
 
 class TestUserRegistration(BaseCase):
     def test_create_user_successfully(self):
         data = self.prepare_registration_data()
-        response = requests.post(url=urls.REGISTRATION_SLUG, data=data)
+        response = MyRequests.post(url=urls.REGISTRATION_SLUG, data=data)
 
         Assertions.assert_code_status(response, HTTPStatus.OK)
         Assertions.assert_json_has_key(response, 'id')
@@ -18,7 +20,7 @@ class TestUserRegistration(BaseCase):
         email = 'vinkotov@example.com'
         expected_content = "Users with email '{}' already exists"
         data = self.prepare_registration_data(email)
-        response = requests.post(url=urls.REGISTRATION_SLUG, data=data)
+        response = MyRequests.post(url=urls.REGISTRATION_SLUG, data=data)
 
         Assertions.assert_code_status(response, HTTPStatus.BAD_REQUEST)
         assert (

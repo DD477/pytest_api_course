@@ -1,13 +1,14 @@
 import requests
 
-from utils.base_case import BaseCase
-from utils.assertions import Assertions
 from const import urls
+from utils.assertions import Assertions
+from utils.base_case import BaseCase
+from utils.my_requests import MyRequests
 
 
 class TestUserGet(BaseCase):
     def test_get_user_detalis_not_auth(self):
-        response = requests.get(url=urls.EDIT_USER_SLUG.format(2))
+        response = MyRequests.get(url=urls.EDIT_USER_SLUG.format(2))
 
         Assertions.assert_json_has_key(response, 'username')
         Assertions.assert_json_has_not_key(response, 'email')
@@ -21,7 +22,7 @@ class TestUserGet(BaseCase):
             self.create_session(email=email, password=password)
         )
 
-        check_response = requests.get(
+        check_response = MyRequests.get(
             url=urls.EDIT_USER_SLUG.format(user_id_from_auth_endpoints),
             headers={'x-csrf-token': token},
             cookies={'auth_sid': auth_sid}

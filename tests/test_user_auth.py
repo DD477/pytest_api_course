@@ -1,8 +1,8 @@
 import pytest
 
+from const import urls
 from utils.assertions import Assertions
 from utils.base_case import BaseCase
-from const import urls
 from utils.my_requests import MyRequests
 
 

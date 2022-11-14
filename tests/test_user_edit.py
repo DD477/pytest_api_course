@@ -1,16 +1,16 @@
-import requests
 from http import HTTPStatus
 
-from utils.base_case import BaseCase
-from utils.assertions import Assertions
 from const import urls
+from utils.assertions import Assertions
+from utils.base_case import BaseCase
+from utils.my_requests import MyRequests
 
 
 class TestUserEdit(BaseCase):
     def test_edit_just_created_user(self):
         # REGISTRATION
         registration_data = self.prepare_registration_data()
-        auth_respose = requests.post(
+        auth_respose = MyRequests.post(
             url=urls.REGISTRATION_SLUG, data=registration_data)
 
         Assertions.assert_code_status(auth_respose, HTTPStatus.OK)
@@ -27,7 +27,7 @@ class TestUserEdit(BaseCase):
 
         # EDIT
         new_name = 'changed name'
-        edit_response = requests.put(
+        edit_response = MyRequests.put(
             url=urls.EDIT_USER_SLUG.format(user_id),
             headers={'x-csrf-token': token},
             cookies={'auth_sid': auth_sid},
@@ -37,7 +37,7 @@ class TestUserEdit(BaseCase):
         Assertions.assert_code_status(edit_response, HTTPStatus.OK)
 
         # GET
-        edit_response = requests.get(
+        edit_response = MyRequests.get(
             url=urls.EDIT_USER_SLUG.format(user_id),
             headers={'x-csrf-token': token},
             cookies={'auth_sid': auth_sid},
