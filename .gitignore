@@ -130,3 +130,5 @@ dmypy.json
 
 #other
 /stuff
+test.py
+.DS_Store

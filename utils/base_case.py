@@ -1,6 +1,6 @@
+from datetime import datetime as dt
 from typing import Optional
 
-from datetime import datetime as dt
 from requests import JSONDecodeError, Response
 
 from const import urls
