@@ -1,9 +1,10 @@
 from datetime import datetime as dt
 from typing import Optional
 
-from requests import JSONDecodeError, Response
+from requests import Response
 
 from const import urls
+from utils.assertions import Assertions
 from utils.my_requests import MyRequests
 
 
@@ -23,12 +24,7 @@ class BaseCase:
         return response.headers[header_name]
 
     def get_json_value(self, response: Response, name: str):
-        try:
-            response_as_dict = response.json()
-        except JSONDecodeError:
-            assert False, (
-                f'Response is not in JSON. Response text is "{response.text}"'
-            )
+        response_as_dict = Assertions.assert_response_in_json_format(response)
         assert name in response_as_dict, (
             f'Response does not have a key {name}'
         )

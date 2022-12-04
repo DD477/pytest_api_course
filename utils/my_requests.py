@@ -3,22 +3,22 @@ import requests
 
 class MyRequests:
     @staticmethod
-    def post(
-        url: str,
-        data: dict = None,
-        headers: dict = None,
-        cookies: dict = None
-    ):
-        return MyRequests._send(url, data, headers, cookies, 'POST')
-
-    @staticmethod
     def get(
         url: str,
         data: dict = None,
         headers: dict = None,
         cookies: dict = None
     ):
-        return MyRequests._send(url, data, headers, cookies, 'GET')
+        return MyRequests._send(url, data, headers, cookies, 'get')
+
+    @staticmethod
+    def post(
+        url: str,
+        data: dict = None,
+        headers: dict = None,
+        cookies: dict = None
+    ):
+        return MyRequests._send(url, data, headers, cookies, 'post')
 
     @staticmethod
     def put(
@@ -27,7 +27,7 @@ class MyRequests:
         headers: dict = None,
         cookies: dict = None
     ):
-        return MyRequests._send(url, data, headers, cookies, 'PUT')
+        return MyRequests._send(url, data, headers, cookies, 'put')
 
     @staticmethod
     def delete(
@@ -36,7 +36,7 @@ class MyRequests:
         headers: dict = None,
         cookies: dict = None
     ):
-        return MyRequests._send(url, data, headers, cookies, 'DELETE')
+        return MyRequests._send(url, data, headers, cookies, 'delete')
 
     @staticmethod
     def _send(
@@ -44,45 +44,31 @@ class MyRequests:
             data: dict,
             headers: dict,
             cookies: dict,
-            method: str
+            http_method: str
     ):
         url = f'https://playground.learnqa.ru/api/{url}'
 
-        if headers is None:
-            headers = {}
+        headers = headers or {}
+        cookies = cookies or {}
 
-        if cookies is None:
-            cookies = {}
+        if http_method == 'get':
+            response = requests.get(
+                url=url,
+                params=data,
+                headers=headers,
+                cookies=cookies
+            )
+        else:
+            try:
+                response = getattr(requests, http_method)(
+                    url=url,
+                    data=data,
+                    headers=headers,
+                    cookies=cookies
+                )
 
-        match method:
-            case 'GET':
-                response = requests.get(
-                    url=url,
-                    params=data,
-                    headers=headers,
-                    cookies=cookies
-                )
-            case 'POST':
-                response = requests.post(
-                    url=url,
-                    data=data,
-                    headers=headers,
-                    cookies=cookies
-                )
-            case 'PUT':
-                response = requests.put(
-                    url=url,
-                    data=data,
-                    headers=headers,
-                    cookies=cookies
-                )
-            case 'DELETE':
-                response = requests.delete(
-                    url=url,
-                    data=data,
-                    headers=headers,
-                    cookies=cookies
-                )
-            case _:
-                raise Exception(f'Bad HTTP method "{method}" was received')
+            except:
+                raise Exception(
+                    f'Bad HTTP method "{http_method}" was received')
+
         return response
