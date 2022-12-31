@@ -7,10 +7,7 @@ from utils.my_requests import MyRequests
 
 
 class TestUserAuth(BaseCase):
-    exclude_params = [
-        ('no cookie'),
-        ('no token'),
-    ]
+    exclude_params = ['no cookie','no token']
 
     def setup_method(self):
         email = 'vinkotov@example.com',
@@ -29,7 +26,7 @@ class TestUserAuth(BaseCase):
             check_response,
             'user_id',
             self.user_id_from_auth_endpoints,
-            '''User id from auth endpoint is not equal
+            '''User id from auth endpoint is not equal 
             to user id from check endpoint'''
 
         )

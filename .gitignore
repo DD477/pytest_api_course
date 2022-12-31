@@ -132,3 +132,4 @@ dmypy.json
 /stuff
 test.py
 .DS_Store
+/logs
