@@ -1,4 +1,5 @@
 import requests
+import os
 
 
 class MyRequests:
@@ -46,7 +47,7 @@ class MyRequests:
             cookies: dict,
             http_method: str
     ):
-        url = f'https://playground.learnqa.ru/api/{url}'
+        url = os.getenv('API_URL') + url
 
         headers = headers or {}
         cookies = cookies or {}
