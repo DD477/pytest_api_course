@@ -1,5 +1,3 @@
-import requests
-
 from const import urls
 from utils.assertions import Assertions
 from utils.base_case import BaseCase
@@ -9,7 +7,6 @@ from utils.my_requests import MyRequests
 class TestUserGet(BaseCase):
     def test_get_user_detalis_not_auth(self):
         response = MyRequests.get(url=urls.EDIT_USER_SLUG.format(2))
-
         Assertions.assert_json_has_key(response, 'username')
         Assertions.assert_json_has_not_key(response, 'email')
         Assertions.assert_json_has_not_key(response, 'firstName')

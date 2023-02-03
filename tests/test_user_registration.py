@@ -1,7 +1,5 @@
 from http import HTTPStatus
 
-import requests
-
 from const import urls
 from utils.assertions import Assertions
 from utils.base_case import BaseCase
