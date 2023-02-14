@@ -134,3 +134,6 @@ test.py
 .DS_Store
 /logs
 .vscode
+
+#allure
+/test_results

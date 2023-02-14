@@ -1,10 +1,14 @@
+import allure
+
 from const import urls
 from utils.assertions import Assertions
 from utils.base_case import BaseCase
 from utils.my_requests import MyRequests
 
 
+@allure.epic('User details viewing cases')
 class TestUserGet(BaseCase):
+    @allure.description('This test checks the ability to view user details for an unauthorized user')
     def test_get_user_detalis_not_auth(self):
         response = MyRequests.get(url=urls.EDIT_USER_SLUG.format(2))
         Assertions.assert_json_has_key(response, 'username')
@@ -12,6 +16,7 @@ class TestUserGet(BaseCase):
         Assertions.assert_json_has_not_key(response, 'firstName')
         Assertions.assert_json_has_not_key(response, 'lastName')
 
+    @allure.description('This test checks the ability to view the details of an authorized user')
     def test_get_user_detalis_auth_as_same_user(self):
         email = 'vinkotov@example.com',
         password = '1234',

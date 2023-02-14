@@ -1,5 +1,6 @@
 import os
 
+import allure
 import requests
 
 from utils.logger import Logger
@@ -13,7 +14,8 @@ class MyRequests:
         headers: dict = None,
         cookies: dict = None
     ):
-        return MyRequests._send(url, data, headers, cookies, 'get')
+        with allure.step(f'GET request to URL "{url}"'):
+            return MyRequests._send(url, data, headers, cookies, 'get')
 
     @staticmethod
     def post(
@@ -22,7 +24,8 @@ class MyRequests:
         headers: dict = None,
         cookies: dict = None
     ):
-        return MyRequests._send(url, data, headers, cookies, 'post')
+        with allure.step(f'POST request to URL "{url}"'):
+            return MyRequests._send(url, data, headers, cookies, 'post')
 
     @staticmethod
     def put(
@@ -31,7 +34,8 @@ class MyRequests:
         headers: dict = None,
         cookies: dict = None
     ):
-        return MyRequests._send(url, data, headers, cookies, 'put')
+        with allure.step(f'PUT request to URL "{url}"'):
+            return MyRequests._send(url, data, headers, cookies, 'put')
 
     @staticmethod
     def delete(
@@ -40,7 +44,8 @@ class MyRequests:
         headers: dict = None,
         cookies: dict = None
     ):
-        return MyRequests._send(url, data, headers, cookies, 'delete')
+        with allure.step(f'DELETE request to URL "{url}"'):
+            return MyRequests._send(url, data, headers, cookies, 'delete')
 
     @staticmethod
     def _send(

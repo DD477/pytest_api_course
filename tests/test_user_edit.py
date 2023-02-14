@@ -1,12 +1,16 @@
 from http import HTTPStatus
 
+import allure
+
 from const import urls
 from utils.assertions import Assertions
 from utils.base_case import BaseCase
 from utils.my_requests import MyRequests
 
 
+@allure.epic('User editing cases')
 class TestUserEdit(BaseCase):
+    @allure.description('This test checks the ability to edit a newly created user')
     def test_edit_just_created_user(self):
         # REGISTRATION
         registration_data = self.prepare_registration_data()

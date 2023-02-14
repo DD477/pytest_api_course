@@ -1,3 +1,4 @@
+import allure
 import pytest
 
 from const import urls
@@ -6,8 +7,9 @@ from utils.base_case import BaseCase
 from utils.my_requests import MyRequests
 
 
+@allure.epic('Authorization cases')
 class TestUserAuth(BaseCase):
-    exclude_params = ['no cookie','no token']
+    exclude_params = ['no cookie', 'no token']
 
     def setup_method(self):
         email = 'vinkotov@example.com',
@@ -16,6 +18,7 @@ class TestUserAuth(BaseCase):
             self.create_session(email=email, password=password)
         )
 
+    @allure.description('This test successfully authorized user by email and password')
     def test_user_auth(self):
         check_response = MyRequests.get(
             url=urls.GET_IS_AUTH_SLUG,
@@ -31,6 +34,7 @@ class TestUserAuth(BaseCase):
 
         )
 
+    @allure.description('This test checks authorization status w/o sending auth cookie or token')
     @pytest.mark.parametrize('condition', exclude_params)
     def test_negative_check_auth(self, condition):
         match condition:
