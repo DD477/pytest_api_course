@@ -5,6 +5,8 @@ import requests
 
 from utils.logger import Logger
 
+from environment import ENV_OBJECT 
+
 
 class MyRequests:
     @staticmethod
@@ -55,7 +57,7 @@ class MyRequests:
             cookies: dict,
             http_method: str
     ):
-        url = os.getenv('API_URL') + url
+        url = ENV_OBJECT.get_base_url() + url
 
         headers = headers or {}
         cookies = cookies or {}
